@@ -33,6 +33,7 @@ export default function LoginScreen({ navigation }) {
         modeValue="contained"
         labelStyle={styles.loginButtonLabel}
         onPress={() => login(email, password)}
+        disabled={!email || !password}
       />
       <FormButton
         title="New user? Join here"

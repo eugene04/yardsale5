@@ -44,6 +44,8 @@ export default function AddItemForm({ navigation }) {
   const [locationServiceEnabled, setLocationServiceEnabled] = useState(false);
   const [newLatitude, setNewLatitude] = useState("");
   const [newLongitude, setNewLongitude] = useState("");
+  const[submitting,setSubmitting]='false';
+  let photo2={}
 
   const closeMenu = () => setVisible(false);
   function openMenu() {
@@ -115,7 +117,7 @@ export default function AddItemForm({ navigation }) {
       .add({
         values,
         category: category,
-        image: imageStorage.photo,
+        image: photo2.photo,
         latitude: newLatitude,
         longitude: newLongitude,
 
@@ -148,19 +150,15 @@ export default function AddItemForm({ navigation }) {
   let uploadImage = async (uri, imageName) => {
     const response = await fetch(uri);
     const blob = await response.blob();
-    const storageRef = firebase.storage().ref("images/" + imageName);
-
-    storageRef.put(blob).then((snapshot) => {
-      snapshot.ref.getDownloadURL().then((downLoadURL) => {
-        console.log("file available at: ", downLoadURL);
-        //setImageStorage(null);
-        setImageStorage({ photo: downLoadURL });
-        
-      
-        //setImageStorage(downLoadURL);
-      });
-    });
-  };
+    const storageRef = firebase.storage().ref("images/" + 
+    imageName);
+    
+    const snapshot = await storageRef.put(blob)
+    const  downLoadURL = await snapshot.ref.getDownloadURL()
+    console.log("file available at: ", downLoadURL);
+    photo2.photo=downLoadURL
+    
+}
 
   function handleButtonPress() {
     if (roomName.length > 0) {
@@ -183,13 +181,13 @@ export default function AddItemForm({ navigation }) {
         });
     }
   }
-  const storageImage =  () => {
+  const storageImage = async () => {
     if (selectedImage !== null) {
-       uploadImage(selectedImage.localUri, randomName);
-      console.log("new image");
+      await uploadImage(selectedImage.localUri, randomName);
+    
     } else {
       setImageStorage({ photo: defaultImage });
-      console.log("default image");
+  
     }
   };
 
@@ -261,14 +259,16 @@ export default function AddItemForm({ navigation }) {
       </Menu>
       <Text style={styles.category}> {category} </Text>
       <Formik
-        initialValues={{ description: "", price: "", roomName: "" }}
-        validationSchema={itemSchema}
-        onSubmit={ (values, actions) => {
-           storageImage();
-            submitForm(values);
-          
-          //submitForm(values);
-
+        initialValues={{ description: "", price: "", roomName: "" 
+      }}
+      validationSchema={itemSchema}
+      onSubmit={ async (values, actions) => {
+         
+         //add image to form
+       await storageImage();
+       //submit form to firebase database
+       submitForm(values);    
+       //reset form
           actions.resetForm();
           setCategory("");
           setSelectedImage(null);
@@ -331,6 +331,9 @@ export default function AddItemForm({ navigation }) {
               mode="contained"
               onPress={props.handleSubmit}
               title="add item"
+              disabled={props.isSubmitting}
+              loading={props.isSubmitting}
+              
             />
           </View>
         )}

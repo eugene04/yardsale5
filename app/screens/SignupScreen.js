@@ -39,6 +39,7 @@ export default function SignupScreen({ navigation }) {
         style={styles.navButton}
         color="#6646ee"
         onPress={() => navigation.goBack()}
+
       />
     </View>
   );
