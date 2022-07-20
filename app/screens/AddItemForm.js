@@ -36,7 +36,7 @@ const itemSchema = yup.object({
 
 export default function AddItemForm({ navigation }) {
   const defaultImage =
-    "https://firebasestorage.googleapis.com/v0/b/baracuda-a5d9f.appspot.com/o/images%2Fyardsale.jpg?alt=media&token=d87abe05-4239-47ec-85a9-c7e0592ceee8";
+    "https://firebasestorage.googleapis.com/v0/b/baracuda-a5d9f.appspot.com/o/images%2F105%2C87%2C146%2C137%2C9%2C158%2C89%2C135%2C43%2C224?alt=media&token=55353c74-5bd3-4c83-9786-2c008852a5ce";
   const [visible, setVisible] = useState(false);
   const [category, setCategory] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);

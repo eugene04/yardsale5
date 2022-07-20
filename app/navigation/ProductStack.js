@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import ListScreen from "../screens/ListScreen";
 import { IconButton } from "react-native-paper";
 import AddItemForm from "../screens/AddItemForm";
-import DetailScreen from "../screens/DetailScreen";
+
 import RoomScreen from "../screens/RoomScreen";
 import FormButton from "../components/FormButton";
 import firebase from "../utils/Firebase";
@@ -45,7 +45,7 @@ export default function ProductStack() {
           ),
         })}
       />
-      <Stack.Screen name="Details" component={DetailScreen} />
+      
       <Stack.Screen name="Add to YardSale" component={AddItemForm} />
       <Stack.Screen name="ratings" component={RatingsScreen} />
       <Stack.Screen

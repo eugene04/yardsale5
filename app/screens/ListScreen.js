@@ -14,7 +14,7 @@ import { useIsFocused } from '@react-navigation/native'
 
 import { Card, Title, Paragraph, Avatar } from "react-native-paper";
 
-import DetailScreen from "./DetailScreen";
+
 import FormButton from "../components/FormButton";
 import "intl";
 import "intl/locale-data/jsonp/en";
@@ -79,30 +79,21 @@ const Id=product.id
     if (mounted) {
       
       myData(newProduct)
-      //fetchChatId();
+     
       console.log(myProduct)
     }
     return () => (mounted = false);
   },[newProduct]);
 
-//const fetchChatId = () => {
-   // const chatId = [];
-   
-   
- // console.log(chat.length);
- // const myId = chat.map((item) => {
- //   return item.id;
-//  });
 
   console.log(roomName);
   console.log(email);
   console.log(userName);
   console.log(userNameArray);
- // const stringId = myId.toString();
-  //console.log(stringId);
+ 
 
   function fetchProducts() {
-    //const myProduct = [];
+    
     db.collection("item")
       .orderBy("createdAt", "desc")
       .get()
@@ -126,9 +117,7 @@ const Id=product.id
 
 
   const myData = async(myNewProduct) => {
-    //productArray = myNewProduct.map((product) => {
-    //   product;
-    //  });
+   
    await GetCurrentLocation()
       myNewProduct.forEach((element) => {
         const mydistance = calcDistance(
@@ -147,9 +136,7 @@ const Id=product.id
                 element.stringId = stringId2
 
               });
-              //setChat(chatId);
-              // console.log("Why :", chat);
-            //   console.log("for what:", chatId);
+             
             });
           
         element.distance = mydistance;
@@ -159,8 +146,7 @@ const Id=product.id
       setProduct(myNewProduct);
   }
      
-     // const stringId = myId.toString();
-   // }
+     
   
 
   async function CheckIfLocationEnabled() {
@@ -203,22 +189,21 @@ const Id=product.id
       newlatitude1 = latitude;
       newlongitude1 = longitude;
 
-     // console.log("step 2");
+    
     }
   };
 
   
   function calcDistance(lat1, lon1, lat2, lon2) {
-    // distance between latitudes=>
-    // and longitudes
+   
     let dLat = ((lat2 - lat1) * Math.PI) / 180.0;
     let dLon = ((lon2 - lon1) * Math.PI) / 180.0;
 
-    // convert to radiansa
+    
     lat1 = (lat1 * Math.PI) / 180.0;
     lat2 = (lat2 * Math.PI) / 180.0;
 
-    // apply formulae
+    
     let a =
       Math.pow(Math.sin(dLat / 2), 2) +
       Math.pow(Math.sin(dLon / 2), 2) * Math.cos(lat1) * Math.cos(lat2);
